@@ -80,6 +80,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Refresh user profile details from server
+  const refreshUser = async () => {
+    try {
+      const res = await API.get('/auth/profile');
+      if (res.data.success) {
+        setUser(res.data.user);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+      }
+    } catch (err) {
+      console.error('Failed to refresh user:', err.message);
+    }
+  };
+
   // Logout handler
   const logout = () => {
     setToken(null);
@@ -98,7 +111,8 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
-        updatePetPreference
+        updatePetPreference,
+        refreshUser
       }}
     >
       {children}

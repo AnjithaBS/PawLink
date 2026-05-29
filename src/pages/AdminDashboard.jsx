@@ -77,7 +77,7 @@ const AdminDashboard = () => {
   const [filterSeverity, setFilterSeverity] = useState('');
 
   // Map control
-  const [mapCenter, setMapCenter] = useState([37.7749, -122.4194]);
+  const [mapCenter, setMapCenter] = useState([8.4024, 77.0822]);
 
   // Detail Modal
   const [selectedReport, setSelectedReport] = useState(null);

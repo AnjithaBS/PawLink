@@ -9,13 +9,19 @@ import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import { initNodemailer } from './config/nodemailer.js';
 
-// Route imports
 import authRoutes from './routes/authRoutes.js';
 import petRoutes from './routes/petRoutes.js';
 import reportRoutes from './routes/reportRoutes.js';
 import nearbyRoutes from './routes/nearbyRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import communityRoutes from './routes/communityRoutes.js';
+import adoptionRoutes from './routes/adoptionRoutes.js';
+import lostFoundRoutes from './routes/lostFoundRoutes.js';
+import forumRoutes from './routes/forumRoutes.js';
+import schedulerRoutes from './routes/schedulerRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
+import pawbotRoutes from './routes/pawbotRoutes.js';
 
 dotenv.config();
 
@@ -62,6 +68,13 @@ app.use('/api/reports', reportRoutes);
 app.use('/api/nearby', nearbyRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/community', communityRoutes);
+app.use('/api/adoption', adoptionRoutes);
+app.use('/api/lost-found', lostFoundRoutes);
+app.use('/api/forum', forumRoutes);
+app.use('/api/scheduler', schedulerRoutes);
+app.use('/api/chat', chatRoutes);
+app.use('/api/pawbot', pawbotRoutes);
 
 // Socket.io Connection Logic
 io.on('connection', (socket) => {

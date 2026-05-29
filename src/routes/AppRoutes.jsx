@@ -13,10 +13,16 @@ import MyReports from '../pages/MyReports.jsx';
 import NearbyHelp from '../pages/NearbyHelp.jsx';
 import Profile from '../pages/Profile.jsx';
 import AdminDashboard from '../pages/AdminDashboard.jsx';
+import Community from '../pages/Community.jsx';
+import AdoptionCorner from '../pages/AdoptionCorner.jsx';
+import LostFoundPets from '../pages/LostFoundPets.jsx';
+import DiscussionForum from '../pages/DiscussionForum.jsx';
+import HealthScheduler from '../pages/HealthScheduler.jsx';
 
 // Layout framework
 import Navbar from '../components/Navbar.jsx';
 import Sidebar from '../components/Sidebar.jsx';
+import PawBotButton from '../components/chatbot/PawBotButton.jsx';
 
 // Shell container incorporating sidebar + navbar
 const DashboardLayout = () => {
@@ -34,6 +40,7 @@ const DashboardLayout = () => {
           </div>
         </main>
       </div>
+      <PawBotButton />
     </div>
   );
 };
@@ -96,6 +103,11 @@ const AppRoutes = () => {
           <Route path="/my-reports" element={<MyReports />} />
           <Route path="/nearby-help" element={<NearbyHelp />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/adoption" element={<AdoptionCorner />} />
+          <Route path="/lost-found" element={<LostFoundPets />} />
+          <Route path="/forum" element={<DiscussionForum />} />
+          <Route path="/health-scheduler" element={<HealthScheduler />} />
         </Route>
       </Route>
 

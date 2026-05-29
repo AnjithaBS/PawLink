@@ -19,9 +19,9 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 export const getNearbyServices = async (req, res) => {
   const { lat, lng, radius } = req.query;
 
-  // Fallback default coordinates (San Francisco) if not provided by browser geolocation
-  const userLat = lat ? parseFloat(lat) : 37.7749;
-  const userLng = lng ? parseFloat(lng) : -122.4194;
+  // Fallback default coordinates (Neyyattinkara, Trivandrum) if not provided by browser geolocation
+  const userLat = lat ? parseFloat(lat) : 8.4024;
+  const userLng = lng ? parseFloat(lng) : 77.0822;
   const maxRadius = radius ? parseFloat(radius) : 50; // default 50km radius
 
   try {

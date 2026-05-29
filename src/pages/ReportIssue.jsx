@@ -70,7 +70,7 @@ const ReportIssue = () => {
   const [photoPreview, setPhotoPreview] = useState('');
   
   // Geolocation states (Defaults to San Francisco coordinates)
-  const [position, setPosition] = useState([37.7749, -122.4194]);
+  const [position, setPosition] = useState([8.4024, 77.0822]);
   const [locating, setLocating] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 

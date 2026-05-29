@@ -162,34 +162,124 @@ const Home = () => {
 
   return (
     <div className="flex flex-col gap-8 relative select-none">
-      {/* Welcome Banner */}
-      <div className="relative glass rounded-3xl p-6 md:p-8 overflow-hidden border border-white/5 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        {/* Glow */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-brand-500/10 rounded-full blur-[80px] pointer-events-none" />
+      {/* Welcome Hero Banner */}
+      <div className="relative glass rounded-[36px] p-8 md:p-12 overflow-hidden border border-white/50 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 bg-gradient-to-br from-white/95 to-brand-50/40">
+        {/* Animated Moving Blobs in Background */}
+        <div className="absolute top-[-20%] right-[-10%] w-72 h-72 bg-brand-200/40 rounded-full blur-[60px] pointer-events-none animate-blob-move" />
+        <div className="absolute bottom-[-10%] left-[20%] w-80 h-80 bg-amber-100/50 rounded-full blur-[80px] pointer-events-none animate-blob-move" style={{ animationDelay: '4s' }} />
+        <div className="absolute top-[30%] left-[-10%] w-60 h-60 bg-purple-100/40 rounded-full blur-[70px] pointer-events-none animate-blob-move" style={{ animationDelay: '8s' }} />
 
-        <div className="flex items-center gap-4 relative z-10">
-          <div className="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400">
-            <Heart className="w-7 h-7 animate-pulse" />
+        {/* Floating paws and hearts rising slowly */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <span className="absolute bottom-4 left-[10%] text-xl opacity-0 animate-rise-fade" style={{ animationDelay: '0s' }}>🐾</span>
+          <span className="absolute bottom-4 left-[30%] text-lg opacity-0 animate-rise-fade" style={{ animationDelay: '1.5s' }}>❤️</span>
+          <span className="absolute bottom-4 left-[50%] text-2xl opacity-0 animate-rise-fade" style={{ animationDelay: '0.8s' }}>🐾</span>
+          <span className="absolute bottom-4 left-[75%] text-lg opacity-0 animate-rise-fade" style={{ animationDelay: '2.2s' }}>❤️</span>
+          <span className="absolute bottom-4 left-[90%] text-xl opacity-0 animate-rise-fade" style={{ animationDelay: '3.1s' }}>🐾</span>
+        </div>
+
+        {/* Left Column: Content */}
+        <div className="flex-grow flex flex-col gap-4 text-center lg:text-left relative z-10">
+          <div className="inline-flex self-center lg:self-start items-center gap-2 p-1 px-3.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 font-bold text-[10px] tracking-wider uppercase shadow-sm animate-float-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
+            Hackathon Presentation Mode 🏆
           </div>
-          <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-slate-100 tracking-tight">
-              Ecosystem Dashboard
-            </h1>
-            <p className="text-slate-400 text-sm mt-1 max-w-lg leading-relaxed">
-              Welcome back, {user?.name}. You are logged in as a{' '}
-              <strong className="text-brand-400 font-semibold">{user?.hasPet ? 'Pet Owner' : 'Community Volunteer'}</strong>.
-            </p>
+
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 tracking-tight leading-tight">
+            Connecting Pets, People & <span className="text-brand-500">Rescue Heroes</span> 🐾
+          </h1>
+
+          <p className="text-slate-600 text-xs md:text-sm max-w-xl leading-relaxed">
+            Welcome back, <strong className="text-slate-800">{user?.name}</strong>! You are on our smart AI-powered platform for pet care, rescue, adoption, and animal safety. Manage your pets, report strays, or query our smart AI assistant.
+          </p>
+
+          {/* Action Buttons Row */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mt-3">
+            <button
+              onClick={() => navigate('/report-issue')}
+              className="flex items-center gap-2 p-1.5 px-5 py-3 rounded-2xl font-bold bg-amber-400 hover:bg-amber-300 text-amber-950 shadow-md shadow-amber-400/10 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+            >
+              🚨 Report Rescue
+            </button>
+            <button
+              onClick={() => navigate('/community')}
+              className="flex items-center gap-2 p-1.5 px-5 py-3 rounded-2xl font-bold bg-brand-500 hover:bg-brand-400 text-white shadow-md shadow-brand-500/15 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+            >
+              Explore Community
+            </button>
+            <button
+              onClick={() => {
+                const btn = document.querySelector('[title="Ask PawBot"]');
+                if (btn) btn.click();
+              }}
+              className="flex items-center gap-2 p-1.5 px-5 py-3 rounded-2xl font-bold bg-emerald-100 hover:bg-emerald-200 text-emerald-800 shadow-md hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+            >
+              💬 Ask PawBot
+            </button>
           </div>
         </div>
 
-        {/* EMERGENCY CONTACT TRIGGER BUTTON */}
-        <button
-          onClick={() => setEmergencyOpen(true)}
-          className="relative z-10 shrink-0 flex items-center gap-2 p-1.5 px-5 py-3 rounded-2xl font-bold bg-rose-500 hover:bg-rose-600 text-white shadow-lg shadow-rose-500/20 hover:shadow-rose-500/40 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 animate-pulse hover:animate-none shrink-0"
-        >
-          <ShieldAlert className="w-5 h-5 shrink-0" />
-          <span>Emergency Assistance</span>
-        </button>
+        {/* Right Column: Cute Vector Illustration */}
+        <div className="w-56 h-56 md:w-72 md:h-72 shrink-0 relative flex items-center justify-center animate-float-slow z-10">
+          <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-2xl">
+            {/* Background Blob */}
+            <path 
+              d="M 20,100 C 20,40 40,20 100,20 C 160,20 180,40 180,100 C 180,160 160,180 100,180 C 40,180 20,160 20,100 Z" 
+              fill="#FFEEDD" 
+              opacity="0.9" 
+            />
+            {/* Color accents */}
+            <circle cx="150" cy="140" r="30" fill="#E0F2FE" />
+            <circle cx="50" cy="50" r="20" fill="#FEE2E2" />
+
+            {/* Dog Illustration */}
+            <g transform="translate(40, 50)">
+              {/* Body */}
+              <ellipse cx="40" cy="70" rx="28" ry="22" fill="#E2E8F0" />
+              {/* Head */}
+              <circle cx="35" cy="45" r="20" fill="#E2E8F0" />
+              {/* Snout */}
+              <ellipse cx="35" cy="51" rx="9" ry="6" fill="#F1F5F9" />
+              {/* Nose */}
+              <polygon points="33,49 37,49 35,52" fill="#0F172A" />
+              {/* Eyes */}
+              <circle cx="29" cy="41" r="2" fill="#0F172A" />
+              <circle cx="41" cy="41" r="2" fill="#0F172A" />
+              {/* Left Ear */}
+              <path d="M 14,38 C 8,42 8,53 14,56 C 17,56 18,45 16,38 Z" fill="#94A3B8" />
+              {/* Right Ear */}
+              <path d="M 56,38 C 62,42 62,53 56,56 C 53,56 52,45 54,38 Z" fill="#94A3B8" />
+              {/* Tongue */}
+              <path d="M 33,54 C 33,58 37,58 37,54 Z" fill="#F43F5E" />
+              {/* Paws */}
+              <circle cx="26" cy="84" r="6" fill="#CBD5E1" />
+              <circle cx="44" cy="84" r="6" fill="#CBD5E1" />
+            </g>
+
+            {/* Cat Illustration */}
+            <g transform="translate(95, 65)">
+              {/* Body */}
+              <ellipse cx="40" cy="65" rx="24" ry="18" fill="#FFEDD5" />
+              {/* Head */}
+              <circle cx="40" cy="40" r="16" fill="#FFEDD5" />
+              {/* Ears */}
+              <polygon points="26,33 30,17 39,29" fill="#FDBA74" />
+              <polygon points="54,33 50,17 41,29" fill="#FDBA74" />
+              {/* Nose */}
+              <polygon points="39,43 41,43 40,45" fill="#0F172A" />
+              {/* Eyes (Happy Closed) */}
+              <path d="M 31,38 Q 34,41 37,38" fill="none" stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M 43,38 Q 46,41 49,38" fill="none" stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" />
+              {/* Whiskers */}
+              <line x1="20" y1="44" x2="28" y2="44" stroke="#FDBA74" strokeWidth="1" />
+              <line x1="21" y1="48" x2="29" y2="47" stroke="#FDBA74" strokeWidth="1" />
+              <line x1="60" y1="44" x2="52" y2="44" stroke="#FDBA74" strokeWidth="1" />
+              <line x1="59" y1="48" x2="51" y2="47" stroke="#FDBA74" strokeWidth="1" />
+              {/* Tail */}
+              <path d="M 58,68 Q 72,70 68,56" fill="none" stroke="#FFEDD5" strokeWidth="5" strokeLinecap="round" />
+            </g>
+          </svg>
+        </div>
       </div>
 
       {/* CONDITIONAL ECOSYSTEM DASHBOARD CONTENT */}

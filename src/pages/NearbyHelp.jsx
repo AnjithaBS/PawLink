@@ -63,13 +63,13 @@ const NearbyHelp = () => {
   const [locating, setLocating] = useState(false);
   
   // Coordinates (Default: San Francisco)
-  const [userCoords, setUserCoords] = useState([37.7749, -122.4194]);
+  const [userCoords, setUserCoords] = useState([8.4024, 77.0822]);
   const [services, setServices] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   
   // Map control
-  const [mapCenter, setMapCenter] = useState([37.7749, -122.4194]);
+  const [mapCenter, setMapCenter] = useState([8.4024, 77.0822]);
   const [selectedServiceId, setSelectedServiceId] = useState(null);
 
   const fetchNearby = async (lat, lng) => {

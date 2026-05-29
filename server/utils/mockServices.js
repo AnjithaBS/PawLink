@@ -1,122 +1,240 @@
-// Static list of mock pet services to serve to pet owners with distance calculations
+// Static list of mock pet services across Kerala
+// Localized Hubs: Vizhinjam, Balaramapuram, Uchakkada, Neyyattinkara, Trivandrum City, Kochi, Calicut, Thrissur
 
 export const mockPetServices = [
-  // Veterinary Hospitals
+  // ==========================================
+  // VETERINARY HOSPITALS & CLINICS
+  // ==========================================
   {
-    id: 'vet-1',
-    name: 'Paws & Claws Veterinary Hospital',
+    id: 'vet-neyyattinkara',
+    name: 'Neyyattinkara Veterinary Super Specialty Hospital',
     type: 'Veterinary Hospital',
-    contact: '+1 (415) 555-0101',
-    email: 'info@pawsclaws.com',
-    rating: 4.8,
-    address: '1420 Valencia St, San Francisco, CA',
-    location: { lat: 37.7483, lng: -122.4208 }
-  },
-  {
-    id: 'vet-2',
-    name: 'Presidio Pet Emergency Center',
-    type: 'Veterinary Hospital',
-    contact: '+1 (415) 555-0102',
-    email: 'contact@presidiopets.com',
-    rating: 4.9,
-    address: '812 Marina Blvd, San Francisco, CA',
-    location: { lat: 37.8055, lng: -122.4430 }
-  },
-  {
-    id: 'vet-3',
-    name: 'Brooklyn Veterinary Center',
-    type: 'Veterinary Hospital',
-    contact: '+1 (212) 555-0301',
-    email: 'nyc@brooklynvet.com',
+    contact: '+91 471 222 2244',
+    email: 'nyr@keralavet.gov.in',
     rating: 4.7,
-    address: '356 Fulton St, Brooklyn, NY',
-    location: { lat: 40.6912, lng: -73.9845 }
+    address: 'Hospital Road, Near Alummoodu Junction, Neyyattinkara, Kerala 695121',
+    location: { lat: 8.4024, lng: 77.0822 }
   },
-
-  // Pet Food Stores
   {
-    id: 'food-1',
-    name: 'Healthy Pets Organic Food Store',
-    type: 'Pet Food Store',
-    contact: '+1 (415) 555-0201',
+    id: 'vet-vizhinjam',
+    name: 'Vizhinjam Harbour Pet Clinic',
+    type: 'Veterinary Hospital',
+    contact: '+91 471 248 0200',
+    email: 'vizhinjam@vets.in',
+    rating: 4.5,
+    address: 'Harbour Road, Near Transit Terminal, Vizhinjam, Thiruvananthapuram, Kerala 695521',
+    location: { lat: 8.3768, lng: 76.9912 }
+  },
+  {
+    id: 'vet-balaramapuram',
+    name: 'Balaramapuram Animal Wellness Center',
+    type: 'Veterinary Hospital',
+    contact: '+91 94470 88991',
+    email: 'balaramapuram.vet@gmail.com',
     rating: 4.6,
-    address: '2230 Fillmore St, San Francisco, CA',
-    location: { lat: 37.7892, lng: -122.4341 }
+    address: 'Main Road, Near Handloom Junction, Balaramapuram, Kerala 695501',
+    location: { lat: 8.4312, lng: 77.0375 }
   },
   {
-    id: 'food-2',
-    name: 'The Daily Bowl - Custom Dog Food',
-    type: 'Pet Food Store',
-    contact: '+1 (415) 555-0202',
+    id: 'vet-uchakada',
+    name: 'Uchakkada Community Veterinary Clinic',
+    type: 'Veterinary Hospital',
+    contact: '+91 98460 33221',
+    email: 'uchakkada.vet@kerala.gov.in',
+    rating: 4.3,
+    address: 'Uchakkada Junction, Kanjiramkulam-Poovar Road, Uchakkada, Kerala 695506',
+    location: { lat: 8.3514, lng: 77.0628 }
+  },
+  {
+    id: 'vet-tvm-city',
+    name: 'Government Chief Veterinary Hospital',
+    type: 'Veterinary Hospital',
+    contact: '+91 471 232 0101',
+    rating: 4.6,
+    address: 'Palayam, Thiruvananthapuram, Kerala 695033',
+    location: { lat: 8.5061, lng: 76.9515 }
+  },
+  {
+    id: 'vet-ekm',
+    name: 'Cochin Pet Hospital & Research Centre',
+    type: 'Veterinary Hospital',
+    contact: '+91 484 234 5678',
     rating: 4.8,
-    address: '584 Castro St, San Francisco, CA',
-    location: { lat: 37.7588, lng: -122.4350 }
-  },
-  {
-    id: 'food-3',
-    name: 'Central Park Pet Nutrition Shop',
-    type: 'Pet Food Store',
-    contact: '+1 (212) 555-0302',
-    rating: 4.5,
-    address: '150 Columbus Ave, New York, NY',
-    location: { lat: 40.7742, lng: -73.9801 }
+    address: 'Kadavanthra, Ernakulam, Kochi, Kerala 682020',
+    location: { lat: 9.9674, lng: 76.2998 }
   },
 
-  // Pet Grooming Salons
+  // ==========================================
+  // PET FOOD & SUPPLIES STORES
+  // ==========================================
   {
-    id: 'groom-1',
-    name: 'Furry Tails Luxury Pet Grooming',
-    type: 'Pet Grooming Salon',
-    contact: '+1 (415) 555-0301',
-    rating: 4.9,
-    address: '400 Gough St, San Francisco, CA',
-    location: { lat: 37.7758, lng: -122.4230 }
+    id: 'food-balaramapuram',
+    name: 'Sree Bhadra Pet Feeds & Accessories',
+    type: 'Pet Food Store',
+    contact: '+91 90482 11223',
+    rating: 4.4,
+    address: 'National Highway 66, Near Junction, Balaramapuram, Kerala 695501',
+    location: { lat: 8.4320, lng: 77.0390 }
   },
   {
-    id: 'groom-2',
-    name: 'Dapper Dog Salon & Spa',
-    type: 'Pet Grooming Salon',
-    contact: '+1 (415) 555-0302',
-    rating: 4.7,
-    address: '1802 Divisadero St, San Francisco, CA',
-    location: { lat: 37.7865, lng: -122.4402 }
+    id: 'food-neyyattinkara',
+    name: 'Neyyar Pet Food Zone',
+    type: 'Pet Food Store',
+    contact: '+91 97441 55667',
+    rating: 4.6,
+    address: 'TB Junction, Near KSRTC Depot, Neyyattinkara, Kerala 695121',
+    location: { lat: 8.4065, lng: 77.0864 }
   },
   {
-    id: 'groom-3',
-    name: 'Broadway Pups Grooming & Spa',
-    type: 'Pet Grooming Salon',
-    contact: '+1 (212) 555-0303',
-    rating: 4.8,
-    address: '2105 Broadway, New York, NY',
-    location: { lat: 40.7812, lng: -73.9818 }
+    id: 'food-uchakada',
+    name: 'Manna Pet Mart Uchakkada',
+    type: 'Pet Food Store',
+    contact: '+91 80862 77889',
+    rating: 4.2,
+    address: 'Market Road, Uchakkada, Kerala 695506',
+    location: { lat: 8.3520, lng: 77.0642 }
+  },
+  {
+    id: 'food-vizhinjam',
+    name: 'Coastal Pet Feeds & Aquarium Supplies',
+    type: 'Pet Food Store',
+    contact: '+91 95625 44332',
+    rating: 4.3,
+    address: 'Mathipuram Road, Vizhinjam, Thiruvananthapuram, Kerala 695521',
+    location: { lat: 8.3812, lng: 76.9885 }
+  },
+  {
+    id: 'food-tvm-city',
+    name: 'Royal Pet Food & Nutrition Center',
+    type: 'Pet Food Store',
+    contact: '+91 94460 54321',
+    rating: 4.4,
+    address: 'MG Road, Thiruvananthapuram, Kerala 695001',
+    location: { lat: 8.4925, lng: 76.9472 }
+  },
+  {
+    id: 'food-ekm',
+    name: 'Kerala Pet Supermarket',
+    type: 'Pet Food Store',
+    contact: '+91 98470 12345',
+    rating: 4.5,
+    address: 'Vyttila Bypass, Kochi, Kerala 682019',
+    location: { lat: 9.9692, lng: 76.3214 }
   },
 
-  // Pet Accessory Shops
+  // ==========================================
+  // PET GROOMING SALONS & SPAS
+  // ==========================================
   {
-    id: 'acc-1',
-    name: 'PawShop Modern Collars & Leashes',
-    type: 'Pet Accessory Shop',
-    contact: '+1 (415) 555-0401',
+    id: 'groom-neyyattinkara',
+    name: 'Royal Paws Pet Grooming Hub',
+    type: 'Pet Grooming Salon',
+    contact: '+91 85920 12121',
     rating: 4.7,
-    address: '3434 Geary Blvd, San Francisco, CA',
-    location: { lat: 37.7818, lng: -122.4555 }
+    address: 'Krishna Nagar, Near Municipal Office, Neyyattinkara, Kerala 695121',
+    location: { lat: 8.3995, lng: 77.0810 }
   },
   {
-    id: 'acc-2',
-    name: 'Barks & Bows Designer Pet Accessories',
-    type: 'Pet Accessory Shop',
-    contact: '+1 (415) 555-0402',
+    id: 'groom-balaramapuram',
+    name: 'Smart Tails Dog Grooming Studio',
+    type: 'Pet Grooming Salon',
+    contact: '+91 70129 44556',
     rating: 4.5,
-    address: '1944 Union St, San Francisco, CA',
-    location: { lat: 37.7972, lng: -122.4308 }
+    address: 'Ooruttambalam Road, Balaramapuram, Kerala 695501',
+    location: { lat: 8.4355, lng: 77.0421 }
   },
   {
-    id: 'acc-3',
-    name: 'SoHo Pet Boutique & Accessory Center',
-    type: 'Pet Accessory Shop',
-    contact: '+1 (212) 555-0304',
+    id: 'groom-vizhinjam',
+    name: 'Ocean Breeze Pet Spa',
+    type: 'Pet Grooming Salon',
+    contact: '+91 91882 66778',
+    rating: 4.6,
+    address: 'Kovalam-Vizhinjam Road, Thiruvananthapuram, Kerala 695521',
+    location: { lat: 8.3884, lng: 76.9823 }
+  },
+  {
+    id: 'groom-uchakada',
+    name: 'Village Pet Care & Bath',
+    type: 'Pet Grooming Salon',
+    contact: '+91 94951 88990',
+    rating: 4.1,
+    address: 'Near Uchakkada Post Office, Uchakkada, Kerala 695506',
+    location: { lat: 8.3502, lng: 77.0610 }
+  },
+  {
+    id: 'groom-tvm-city',
+    name: 'Scooby Doo Grooming Studio',
+    type: 'Pet Grooming Salon',
+    contact: '+91 98952 77889',
+    rating: 4.7,
+    address: 'Kazhakkoottam, Thiruvananthapuram, Kerala 695582',
+    location: { lat: 8.5686, lng: 76.8731 }
+  },
+  {
+    id: 'groom-ekm',
+    name: 'Paws & Tails Luxury Grooming Salon',
+    type: 'Pet Grooming Salon',
+    contact: '+91 484 405 2211',
     rating: 4.9,
-    address: '92 Prince St, New York, NY',
-    location: { lat: 40.7245, lng: -73.9982 }
+    address: 'Panampilly Nagar, Ernakulam, Kochi, Kerala 682036',
+    location: { lat: 9.9622, lng: 76.2941 }
+  },
+
+  // ==========================================
+  // PET ACCESSORY SHOPS
+  // ==========================================
+  {
+    id: 'acc-neyyattinkara',
+    name: 'Neyyar Pet Styles & Fancy Boutique',
+    type: 'Pet Accessory Shop',
+    contact: '+91 75610 33445',
+    rating: 4.6,
+    address: 'Main Road, Opposite Girls High School, Neyyattinkara, Kerala 695121',
+    location: { lat: 8.4038, lng: 77.0840 }
+  },
+  {
+    id: 'acc-balaramapuram',
+    name: 'Handloom & Leash Pet Boutique',
+    type: 'Pet Accessory Shop',
+    contact: '+91 81390 99887',
+    rating: 4.8,
+    address: 'Chalai Bazaar Road, Balaramapuram, Kerala 695501',
+    location: { lat: 8.4305, lng: 77.0350 }
+  },
+  {
+    id: 'acc-vizhinjam',
+    name: 'Port-Side Premium Pet Accessories',
+    type: 'Pet Accessory Shop',
+    contact: '+91 97471 22334',
+    rating: 4.4,
+    address: 'Adimalathura-Vizhinjam Road, Vizhinjam, Kerala 695521',
+    location: { lat: 8.3695, lng: 76.9988 }
+  },
+  {
+    id: 'acc-uchakada',
+    name: 'Border Pets Outpost',
+    type: 'Pet Accessory Shop',
+    contact: '+91 90612 11002',
+    rating: 4.3,
+    address: 'Kaliyakkavilai Road, Uchakkada, Kerala 695506',
+    location: { lat: 8.3535, lng: 77.0660 }
+  },
+  {
+    id: 'acc-tvm-city',
+    name: 'Kowdiar Pet Luxury & Accessories',
+    type: 'Pet Accessory Shop',
+    contact: '+91 81290 88776',
+    rating: 4.5,
+    address: 'Kowdiar Avenue, Thiruvananthapuram, Kerala 695003',
+    location: { lat: 8.5243, lng: 76.9632 }
+  },
+  {
+    id: 'acc-ekm',
+    name: 'Wagging Tails Premium Pet Boutique',
+    type: 'Pet Accessory Shop',
+    contact: '+91 70120 99001',
+    rating: 4.7,
+    address: 'Lulu Mall Road, Edappally, Kochi, Kerala 682024',
+    location: { lat: 10.0261, lng: 76.3125 }
   }
 ];

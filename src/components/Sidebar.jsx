@@ -9,7 +9,12 @@ import {
   User, 
   ShieldAlert, 
   LogOut,
-  HeartPulse
+  HeartPulse,
+  Users,
+  Sparkles,
+  Map,
+  MessageSquare,
+  Activity
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -75,6 +80,34 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 Nearby Help
                 <HeartPulse className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
               </span>
+            </NavLink>
+          )}
+
+          <NavLink to="/community" className={navLinkClass} onClick={toggleSidebar}>
+            <Users className="w-5 h-5" />
+            <span>Pet Community</span>
+          </NavLink>
+
+          <NavLink to="/adoption" className={navLinkClass} onClick={toggleSidebar}>
+            <Sparkles className="w-5 h-5" />
+            <span>Adoption Corner</span>
+          </NavLink>
+
+          <NavLink to="/lost-found" className={navLinkClass} onClick={toggleSidebar}>
+            <Map className="w-5 h-5" />
+            <span>Lost & Found</span>
+          </NavLink>
+
+          <NavLink to="/forum" className={navLinkClass} onClick={toggleSidebar}>
+            <MessageSquare className="w-5 h-5" />
+            <span>Discussion Forum</span>
+          </NavLink>
+
+          {/* Show Scheduler ONLY if user has pets */}
+          {user?.hasPet === true && (
+            <NavLink to="/health-scheduler" className={navLinkClass} onClick={toggleSidebar}>
+              <Activity className="w-5 h-5" />
+              <span>Health Scheduler</span>
             </NavLink>
           )}
 
