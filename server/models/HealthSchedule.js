@@ -38,6 +38,10 @@ const HealthScheduleSchema = new mongoose.Schema({
     enum: ['Pending', 'Completed', 'Overdue'],
     default: 'Pending'
   },
+  emailSent: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now

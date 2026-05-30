@@ -4,16 +4,16 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useToast } from '../context/ToastContext.jsx';
 import API from '../services/api.js';
 import Spinner from '../components/Spinner.jsx';
-import { 
-  Heart, 
-  ShieldAlert, 
-  Plus, 
-  Trash2, 
-  Edit3, 
-  AlertOctagon, 
-  Calendar, 
-  FileText, 
-  ChevronRight, 
+import {
+  Heart,
+  ShieldAlert,
+  Plus,
+  Trash2,
+  Edit3,
+  AlertOctagon,
+  Calendar,
+  FileText,
+  ChevronRight,
   Phone,
   Upload,
   UserCheck,
@@ -37,7 +37,7 @@ const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [selectedPetId, setSelectedPetId] = useState(null);
-  
+
   // Form fields
   const [name, setName] = useState('');
   const [breed, setBreed] = useState('');
@@ -163,77 +163,75 @@ const Home = () => {
   return (
     <div className="flex flex-col gap-8 relative select-none">
       {/* Welcome Hero Banner */}
-      <div className="relative glass rounded-[36px] p-8 md:p-12 overflow-hidden border border-white/50 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 bg-gradient-to-br from-white/95 to-brand-50/40">
+      <div className="relative glass rounded-[36px] p-8 md:p-12 overflow-hidden border border-white/5 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 bg-[#0F172A]/40 backdrop-blur-xl">
         {/* Animated Moving Blobs in Background */}
-        <div className="absolute top-[-20%] right-[-10%] w-72 h-72 bg-brand-200/40 rounded-full blur-[60px] pointer-events-none animate-blob-move" />
-        <div className="absolute bottom-[-10%] left-[20%] w-80 h-80 bg-amber-100/50 rounded-full blur-[80px] pointer-events-none animate-blob-move" style={{ animationDelay: '4s' }} />
-        <div className="absolute top-[30%] left-[-10%] w-60 h-60 bg-purple-100/40 rounded-full blur-[70px] pointer-events-none animate-blob-move" style={{ animationDelay: '8s' }} />
+        <div className="absolute top-[-20%] right-[-10%] w-72 h-72 bg-sky-500/10 rounded-full blur-[60px] pointer-events-none animate-blob-move" />
+        <div className="absolute bottom-[-10%] left-[20%] w-80 h-80 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none animate-blob-move" style={{ animationDelay: '4s' }} />
+        <div className="absolute top-[30%] left-[-10%] w-60 h-60 bg-peach-500/10 rounded-full blur-[70px] pointer-events-none animate-blob-move" style={{ animationDelay: '8s' }} />
 
         {/* Floating paws and hearts rising slowly */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <span className="absolute bottom-4 left-[10%] text-xl opacity-0 animate-rise-fade" style={{ animationDelay: '0s' }}>🐾</span>
-          <span className="absolute bottom-4 left-[30%] text-lg opacity-0 animate-rise-fade" style={{ animationDelay: '1.5s' }}>❤️</span>
-          <span className="absolute bottom-4 left-[50%] text-2xl opacity-0 animate-rise-fade" style={{ animationDelay: '0.8s' }}>🐾</span>
-          <span className="absolute bottom-4 left-[75%] text-lg opacity-0 animate-rise-fade" style={{ animationDelay: '2.2s' }}>❤️</span>
-          <span className="absolute bottom-4 left-[90%] text-xl opacity-0 animate-rise-fade" style={{ animationDelay: '3.1s' }}>🐾</span>
+          <span className="absolute bottom-4 left-[10%] text-xl opacity-0 animate-rise-fade text-sky-400" style={{ animationDelay: '0s' }}>🐾</span>
+          <span className="absolute bottom-4 left-[25%] text-lg opacity-0 animate-rise-fade text-rose-400" style={{ animationDelay: '1.8s' }}>❤️</span>
+          <span className="absolute bottom-4 left-[45%] text-2xl opacity-0 animate-rise-fade text-purple-400" style={{ animationDelay: '0.8s' }}>🐾</span>
+          <span className="absolute bottom-4 left-[65%] text-lg opacity-0 animate-rise-fade text-sky-400" style={{ animationDelay: '2.5s' }}>🐾</span>
+          <span className="absolute bottom-4 left-[80%] text-xl opacity-0 animate-rise-fade text-rose-400" style={{ animationDelay: '1.2s' }}>❤️</span>
+          <span className="absolute bottom-4 left-[92%] text-lg opacity-0 animate-rise-fade text-purple-400" style={{ animationDelay: '3.1s' }}>🐾</span>
         </div>
 
         {/* Left Column: Content */}
         <div className="flex-grow flex flex-col gap-4 text-center lg:text-left relative z-10">
-          <div className="inline-flex self-center lg:self-start items-center gap-2 p-1 px-3.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 font-bold text-[10px] tracking-wider uppercase shadow-sm animate-float-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
-            Hackathon Presentation Mode 🏆
-          </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 tracking-tight leading-tight">
-            Connecting Pets, People & <span className="text-brand-500">Rescue Heroes</span> 🐾
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-white">
+            Connecting Pets, People & <span className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(56,189,248,0.25)]">Rescue Heroes</span> 🐾
           </h1>
 
-          <p className="text-slate-600 text-xs md:text-sm max-w-xl leading-relaxed">
-            Welcome back, <strong className="text-slate-800">{user?.name}</strong>! You are on our smart AI-powered platform for pet care, rescue, adoption, and animal safety. Manage your pets, report strays, or query our smart AI assistant.
+          <p className="text-slate-300 text-xs md:text-sm max-w-xl leading-relaxed">
+            Welcome back, <strong className="text-white font-bold">{user?.name}</strong>! You are on our smart AI-powered platform for pet care, rescue, adoption, and animal safety. Manage your pets, report strays, or query our smart AI assistant.
           </p>
 
           {/* Action Buttons Row */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mt-3">
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 mt-3">
             <button
               onClick={() => navigate('/report-issue')}
-              className="flex items-center gap-2 p-1.5 px-5 py-3 rounded-2xl font-bold bg-amber-400 hover:bg-amber-300 text-amber-950 shadow-md shadow-amber-400/10 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+              className="flex items-center gap-2 px-5 py-3 rounded-2xl font-black text-xs bg-rose-500 hover:bg-rose-400 text-white shadow-[0_0_20px_rgba(244,63,94,0.3)] hover:shadow-[0_0_30px_rgba(244,63,94,0.55)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
             >
               🚨 Report Rescue
             </button>
             <button
               onClick={() => navigate('/community')}
-              className="flex items-center gap-2 p-1.5 px-5 py-3 rounded-2xl font-bold bg-brand-500 hover:bg-brand-400 text-white shadow-md shadow-brand-500/15 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+              className="flex items-center gap-2 px-5 py-3 rounded-2xl font-black text-xs bg-transparent hover:bg-sky-500/10 text-sky-400 border border-sky-400/30 hover:border-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.1)] hover:shadow-[0_0_25px_rgba(56,189,248,0.25)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
             >
-              Explore Community
+              💙 Explore Community
             </button>
             <button
               onClick={() => {
                 const btn = document.querySelector('[title="Ask PawBot"]');
                 if (btn) btn.click();
               }}
-              className="flex items-center gap-2 p-1.5 px-5 py-3 rounded-2xl font-bold bg-emerald-100 hover:bg-emerald-200 text-emerald-800 shadow-md hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+              className="flex items-center gap-2 px-5 py-3 rounded-2xl font-black text-xs bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-400/20 hover:border-emerald-400/50 shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:shadow-[0_0_25px_rgba(16,185,129,0.25)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
             >
-              💬 Ask PawBot
+              🤖 Ask PawBot
             </button>
           </div>
         </div>
 
         {/* Right Column: Cute Vector Illustration */}
         <div className="w-56 h-56 md:w-72 md:h-72 shrink-0 relative flex items-center justify-center animate-float-slow z-10">
-          <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-2xl">
+          <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-[0_0_30px_rgba(167,139,250,0.25)]">
             {/* Background Blob */}
-            <path 
-              d="M 20,100 C 20,40 40,20 100,20 C 160,20 180,40 180,100 C 180,160 160,180 100,180 C 40,180 20,160 20,100 Z" 
-              fill="#FFEEDD" 
-              opacity="0.9" 
+            <path
+              d="M 20,100 C 20,40 40,20 100,20 C 160,20 180,40 180,100 C 180,160 160,180 100,180 C 40,180 20,160 20,100 Z"
+              fill="#1E1B4B"
+              opacity="0.6"
+              className="stroke-purple-500/20 stroke-1"
             />
             {/* Color accents */}
-            <circle cx="150" cy="140" r="30" fill="#E0F2FE" />
-            <circle cx="50" cy="50" r="20" fill="#FEE2E2" />
+            <circle cx="150" cy="140" r="30" fill="#082F49" opacity="0.8" className="filter blur-md" />
+            <circle cx="50" cy="50" r="20" fill="#311042" opacity="0.8" className="filter blur-md" />
 
             {/* Dog Illustration */}
-            <g transform="translate(40, 50)">
+            <g transform="translate(40, 50)" className="filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
               {/* Body */}
               <ellipse cx="40" cy="70" rx="28" ry="22" fill="#E2E8F0" />
               {/* Head */}
@@ -257,7 +255,7 @@ const Home = () => {
             </g>
 
             {/* Cat Illustration */}
-            <g transform="translate(95, 65)">
+            <g transform="translate(95, 65)" className="filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
               {/* Body */}
               <ellipse cx="40" cy="65" rx="24" ry="18" fill="#FFEDD5" />
               {/* Head */}
@@ -297,7 +295,7 @@ const Home = () => {
                   {pets.length} Card{pets.length !== 1 ? 's' : ''}
                 </span>
               </h2>
-              
+
               <button
                 onClick={openAddModal}
                 className="flex items-center gap-1.5 p-1 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-brand-500 hover:bg-brand-400 shadow-md shadow-brand-500/10 hover:shadow-brand-500/25 transition-all hover:scale-[1.03] active:scale-[0.97]"
@@ -345,7 +343,7 @@ const Home = () => {
                       ) : (
                         <div className="text-6xl select-none">🐾</div>
                       )}
-                      
+
                       {/* Name capsule overlay */}
                       <div className="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur-md border border-white/10 px-3.5 py-1 rounded-xl">
                         <h4 className="font-bold text-sm text-white">{pet.name}</h4>
@@ -413,7 +411,7 @@ const Home = () => {
           {/* Quick Support Column (Right column) */}
           <div className="lg:col-span-1 flex flex-col gap-6">
             <h2 className="text-xl font-bold text-slate-200">Owner Quick Actions</h2>
-            
+
             <div className="glass rounded-3xl p-5 border border-white/5 shadow-xl flex flex-col gap-4">
               {/* Report Issue shortcut */}
               <div
@@ -466,7 +464,7 @@ const Home = () => {
                 <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-brand-400 transition-all duration-300 transform group-hover:translate-x-1" />
               </div>
             </div>
-            
+
             {/* Pet tips card */}
             <div className="glass rounded-3xl p-5 border border-white/5 shadow-xl flex flex-col gap-3">
               <h3 className="font-bold text-sm text-slate-200">💡 Stray Care Wisdom</h3>
@@ -484,16 +482,16 @@ const Home = () => {
           {/* Supporters Guide */}
           <div className="flex flex-col gap-6">
             <h2 className="text-xl font-bold text-slate-200">Volunteer Control Hub</h2>
-            
+
             <div className="glass rounded-3xl p-6 border border-white/5 shadow-xl flex flex-col gap-6">
               <h3 className="font-extrabold text-lg text-slate-100 leading-relaxed">
                 Help Us Protect Local & Wild Wildlife
               </h3>
-              
+
               <p className="text-xs text-slate-400 leading-relaxed">
                 As a community supporter, your vigilance is our greatest rescue asset. You have full access to our community reporting tools to coordinate response operations for stray or wild animals.
               </p>
-              
+
               {/* Shortcut buttons */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <button
@@ -528,23 +526,30 @@ const Home = () => {
           {/* Rescue Statistics & Info */}
           <div className="flex flex-col gap-6">
             <h2 className="text-xl font-bold text-slate-200">Community Stats</h2>
-            
+
             <div className="glass rounded-3xl p-6 border border-white/5 shadow-xl grid grid-cols-2 gap-6">
-              <div className="text-center p-4 rounded-2xl bg-white/5 border border-white/5">
-                <h4 className="text-3xl font-extrabold text-brand-400">100%</h4>
-                <p className="text-[10px] text-slate-500 tracking-wider font-bold uppercase mt-1">Smart Alert Route</p>
+              <div className="text-center p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover-tilt-lift relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-12 h-12 bg-sky-500/10 rounded-full blur-xl pointer-events-none group-hover:scale-150 transition-all duration-500" />
+                <h4 className="text-3xl font-black bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(56,189,248,0.3)]">100%</h4>
+                <p className="text-[10px] text-slate-400 tracking-wider font-bold uppercase mt-2.5 flex items-center justify-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                  Smart Route
+                </p>
               </div>
-              <div className="text-center p-4 rounded-2xl bg-white/5 border border-white/5">
-                <h4 className="text-3xl font-extrabold text-brand-400">&lt; 15m</h4>
-                <p className="text-[10px] text-slate-500 tracking-wider font-bold uppercase mt-1">Responder Dispatch</p>
+              <div className="text-center p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover-tilt-lift relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-12 h-12 bg-peach-500/10 rounded-full blur-xl pointer-events-none group-hover:scale-150 transition-all duration-500" />
+                <h4 className="text-3xl font-black bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(253,186,116,0.3)]">&lt; 15m</h4>
+                <p className="text-[10px] text-slate-400 tracking-wider font-bold uppercase mt-2.5">Dispatch Time</p>
               </div>
-              <div className="text-center p-4 rounded-2xl bg-white/5 border border-white/5">
-                <h4 className="text-3xl font-extrabold text-brand-400">2,480</h4>
-                <p className="text-[10px] text-slate-500 tracking-wider font-bold uppercase mt-1">Animals Rescued</p>
+              <div className="text-center p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover-tilt-lift relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-12 h-12 bg-mint-500/10 rounded-full blur-xl pointer-events-none group-hover:scale-150 transition-all duration-500" />
+                <h4 className="text-3xl font-black bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(110,231,183,0.3)]">2,480</h4>
+                <p className="text-[10px] text-slate-400 tracking-wider font-bold uppercase mt-2.5">Saved Lives</p>
               </div>
-              <div className="text-center p-4 rounded-2xl bg-white/5 border border-white/5">
-                <h4 className="text-3xl font-extrabold text-brand-400">92%</h4>
-                <p className="text-[10px] text-slate-500 tracking-wider font-bold uppercase mt-1">Resolution Rate</p>
+              <div className="text-center p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover-tilt-lift relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-12 h-12 bg-purple-500/10 rounded-full blur-xl pointer-events-none group-hover:scale-150 transition-all duration-500" />
+                <h4 className="text-3xl font-black bg-gradient-to-r from-purple-400 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(167,139,250,0.3)]">92%</h4>
+                <p className="text-[10px] text-slate-400 tracking-wider font-bold uppercase mt-2.5">Success Rate</p>
               </div>
             </div>
 
@@ -650,7 +655,7 @@ const Home = () => {
                 </a>
               </div>
             </div>
-            
+
             {/* Info warning */}
             <p className="text-[10px] text-slate-500 text-center leading-relaxed">
               * By dialing, you confirm that you will submit a formal incident log in PawLink afterwards to help us track local stray histories.
@@ -745,7 +750,7 @@ const Home = () => {
                         className="hidden"
                       />
                     </label>
-                    
+
                     {photoPreview && (
                       <div className="w-12 h-12 rounded-xl bg-slate-900 overflow-hidden shrink-0 border border-white/10">
                         <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />

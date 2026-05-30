@@ -1,27 +1,25 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
 
 const QuickSuggestions = ({ onSelect }) => {
-  const chips = [
-    { label: '🐶 Dog Care', query: 'Tell me how to take care of a dog' },
-    { label: '🐱 Cat Care', query: 'Tell me how to take care of a cat' },
-    { label: '💉 Vaccination', query: 'What is the pet vaccination schedule?' },
-    { label: '🚨 Emergency Help', query: 'What do I do in an animal emergency?' },
-    { label: '📍 Nearby Vet', query: 'Where is the nearest vet hospital?' },
-    { label: '🍖 Food Guide', query: 'What are the safe and toxic foods for pets?' },
-    { label: '🎀 Pet Names', query: 'Suggest some cute pet names' }
+  const suggestions = [
+    { label: '🐶 Dog Care', query: 'Give me general care tips for a dog' },
+    { label: '🐱 Cat Care', query: 'Give me general care tips for a cat' },
+    { label: '💉 Vaccination', query: 'What is the recommended vaccination schedule for puppies?' },
+    { label: '🚨 Emergency', query: 'My dog has a severe bleeding injury' },
+    { label: '📍 Nearby Vet', query: 'Nearest vet' },
+    { label: '🍖 Food Guide', query: 'What foods are toxic for pets?' },
+    { label: '🎀 Pet Names', query: 'Suggest names for a white female cat' }
   ];
 
   return (
-    <div className="px-4 py-2 border-t border-white/5 bg-slate-900/30 flex flex-wrap gap-1.5 shrink-0">
-      {chips.map((chip, idx) => (
+    <div className="p-3 bg-slate-900/60 border-t border-white/5 flex flex-wrap gap-2 justify-center select-none shrink-0">
+      {suggestions.map((sug, idx) => (
         <button
           key={idx}
-          onClick={() => onSelect(chip.query)}
-          className="flex items-center gap-1 p-1 px-2.5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-brand-500/10 hover:border-brand-500/30 text-[10px] font-bold text-slate-400 hover:text-brand-400 transition-all active:scale-[0.98]"
+          onClick={() => onSelect(sug.query)}
+          className="px-2.5 py-1.5 rounded-lg text-[10px] font-bold bg-white/5 border border-white/10 hover:border-sky-400/50 hover:bg-sky-500/10 text-slate-300 hover:text-sky-300 transition-all duration-200 active:scale-[0.96]"
         >
-          <Sparkles className="w-3 h-3 shrink-0 text-brand-400/70" />
-          <span>{chip.label}</span>
+          {sug.label}
         </button>
       ))}
     </div>

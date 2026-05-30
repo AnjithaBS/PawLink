@@ -18,25 +18,25 @@ import {
 
 // Create custom icons based on Category for beautiful map indicators
 const createCustomIcon = (type) => {
-  let colorClass = 'bg-brand-500 border-brand-400';
-  let innerColor = 'bg-brand-100';
+  let colorClass = 'bg-emerald-500 border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.5)]';
+  let innerColor = 'bg-emerald-100';
 
   if (type === 'Pet Food Store') {
-    colorClass = 'bg-sky-500 border-sky-400';
+    colorClass = 'bg-sky-500 border-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.5)]';
     innerColor = 'bg-sky-100';
   } else if (type === 'Pet Grooming Salon') {
-    colorClass = 'bg-fuchsia-500 border-fuchsia-400';
+    colorClass = 'bg-fuchsia-500 border-fuchsia-400 shadow-[0_0_12px_rgba(217,70,239,0.5)]';
     innerColor = 'bg-fuchsia-100';
   } else if (type === 'Pet Accessory Shop') {
-    colorClass = 'bg-amber-500 border-amber-400';
+    colorClass = 'bg-amber-500 border-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.5)]';
     innerColor = 'bg-amber-100';
   }
 
   return new L.DivIcon({
     html: `
       <div class="relative w-8 h-8 flex items-center justify-center">
-        <div class="w-6 h-6 rounded-full ${colorClass} border-2 flex items-center justify-center shadow-2xl">
-          <div class="w-1.5 h-1.5 rounded-full ${innerColor}"></div>
+        <div class="w-6 h-6 rounded-full ${colorClass} border-2 flex items-center justify-center shadow-lg">
+          <span class="text-[10px] text-white font-bold leading-none select-none">🐾</span>
         </div>
       </div>
     `,
@@ -267,9 +267,9 @@ const NearbyHelp = () => {
                 icon={new L.DivIcon({
                   html: `
                     <div class="relative w-8 h-8 flex items-center justify-center">
-                      <div class="absolute w-8 h-8 rounded-full bg-rose-500/30 animate-ping"></div>
-                      <div class="relative w-6 h-6 rounded-full bg-slate-950 border-2 border-rose-500 flex items-center justify-center shadow-lg">
-                        <div class="w-1.5 h-1.5 rounded-full bg-rose-400"></div>
+                      <div class="absolute w-8 h-8 rounded-full bg-sky-500/30 animate-ping"></div>
+                      <div class="relative w-6 h-6 rounded-full bg-[#0B0F1A] border-2 border-sky-400 flex items-center justify-center shadow-[0_0_12px_rgba(56,189,248,0.4)]">
+                        <div class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></div>
                       </div>
                     </div>
                   `,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import ChatWindow from './ChatWindow.jsx';
-import { Bot } from 'lucide-react';
+import { PawPrint } from 'lucide-react';
 
 const PawBotButton = () => {
   const { isAuthenticated } = useAuth();
@@ -22,7 +22,7 @@ const PawBotButton = () => {
         >
           {/* Pulsing ring animation */}
           <div className="absolute inset-0 rounded-full bg-brand-500/25 animate-ping group-hover:scale-110" />
-          <Bot className="w-6 h-6 z-10 animate-bounce" />
+          <PawPrint className="w-6 h-6 z-10 animate-bounce" />
         </button>
       )}
 

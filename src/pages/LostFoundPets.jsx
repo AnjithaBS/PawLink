@@ -24,8 +24,8 @@ const lostPinIcon = new L.DivIcon({
   html: `
     <div class="relative w-8 h-8 flex items-center justify-center">
       <div class="absolute w-8 h-8 rounded-full bg-rose-500/30 border border-rose-400 animate-ping"></div>
-      <div class="relative w-7 h-7 rounded-full bg-slate-950 border-2 border-rose-500 flex items-center justify-center shadow-2xl">
-        <div class="w-2 h-2 rounded-full bg-rose-500"></div>
+      <div class="relative w-7 h-7 rounded-full bg-[#0B0F1A] border-2 border-rose-500 flex items-center justify-center shadow-[0_0_15px_rgba(244,63,94,0.5)]">
+        <span class="text-xs text-rose-400 font-bold select-none leading-none">🐾</span>
       </div>
     </div>
   `,
@@ -38,8 +38,8 @@ const foundPinIcon = new L.DivIcon({
   html: `
     <div class="relative w-8 h-8 flex items-center justify-center">
       <div class="absolute w-8 h-8 rounded-full bg-emerald-500/30 border border-emerald-400 animate-ping"></div>
-      <div class="relative w-7 h-7 rounded-full bg-slate-950 border-2 border-emerald-500 flex items-center justify-center shadow-2xl">
-        <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+      <div class="relative w-7 h-7 rounded-full bg-[#0B0F1A] border-2 border-emerald-500 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)]">
+        <span class="text-xs text-emerald-400 font-bold select-none leading-none">🐾</span>
       </div>
     </div>
   `,
@@ -309,8 +309,12 @@ const LostFoundPets = () => {
                       setViewCenter([report.lastSeenLocation.lat, report.lastSeenLocation.lng]);
                     }
                   }}
-                  className={`glass rounded-2xl border p-4 flex gap-4 cursor-pointer hover:border-brand-500/30 transition-all ${
-                    report.status === 'Found' ? 'opacity-65 border-white/5' : 'border-white/5'
+                  className={`glass rounded-2xl border p-4 flex gap-4 cursor-pointer transition-all hover-tilt-lift ${
+                    report.status === 'Found' 
+                      ? 'opacity-60 border-white/5 bg-slate-900/40' 
+                      : report.type === 'Lost'
+                        ? 'blink-glow-red border-rose-500/30 bg-[#0F172A]/70 shadow-[0_0_15px_rgba(244,63,94,0.05)]'
+                        : 'blink-glow-orange border-amber-500/30 bg-[#0F172A]/70 shadow-[0_0_15px_rgba(253,186,116,0.05)]'
                   }`}
                 >
                   {/* Picture */}

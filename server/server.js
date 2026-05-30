@@ -20,8 +20,8 @@ import adoptionRoutes from './routes/adoptionRoutes.js';
 import lostFoundRoutes from './routes/lostFoundRoutes.js';
 import forumRoutes from './routes/forumRoutes.js';
 import schedulerRoutes from './routes/schedulerRoutes.js';
-import chatRoutes from './routes/chatRoutes.js';
 import pawbotRoutes from './routes/pawbotRoutes.js';
+import { startReminderDaemon } from './utils/reminderDaemon.js';
 
 dotenv.config();
 
@@ -42,7 +42,9 @@ export const io = new Server(server, {
 });
 
 // Connect to Database & Mailer
-connectDB();
+connectDB().then(() => {
+  startReminderDaemon();
+});
 initNodemailer();
 
 // Middlewares
@@ -73,7 +75,6 @@ app.use('/api/adoption', adoptionRoutes);
 app.use('/api/lost-found', lostFoundRoutes);
 app.use('/api/forum', forumRoutes);
 app.use('/api/scheduler', schedulerRoutes);
-app.use('/api/chat', chatRoutes);
 app.use('/api/pawbot', pawbotRoutes);
 
 // Socket.io Connection Logic

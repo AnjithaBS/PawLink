@@ -238,10 +238,10 @@ const AdoptionCorner = () => {
           {listings.map((listing) => (
             <div 
               key={listing._id}
-              className={`glass rounded-3xl border overflow-hidden flex flex-col transition-all duration-300 hover:scale-[1.02] ${
+              className={`glass rounded-3xl border overflow-hidden flex flex-col transition-all duration-300 hover-tilt-lift group ${
                 listing.status === 'Adopted' 
                   ? 'border-white/5 opacity-65' 
-                  : 'border-white/5 hover:border-white/10'
+                  : 'border-white/5 hover:border-purple-500/20 hover:shadow-[0_0_25px_rgba(167,139,250,0.15)] bg-gradient-to-br from-[#0F172A]/80 via-[#0F172A]/90 to-[#A78BFA]/[0.02]'
               }`}
             >
               {/* Pet Picture */}
@@ -249,12 +249,12 @@ const AdoptionCorner = () => {
                 <img 
                   src={`http://localhost:5000${listing.image}`} 
                   alt={listing.breed} 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 
                 {/* Badge Overlay */}
-                <div className="absolute top-3 left-3 flex gap-2">
-                  <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
+                <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 items-center">
+                  <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
                     listing.status === 'Available' 
                       ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400' 
                       : 'bg-slate-500/10 border border-slate-500/20 text-slate-400'
@@ -262,18 +262,24 @@ const AdoptionCorner = () => {
                     {listing.status}
                   </span>
                   
-                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-slate-950/80 backdrop-blur-md border border-white/10 text-white">
+                  {listing.status === 'Available' && (
+                    <span className="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-purple-500/10 border border-purple-500/30 text-purple-300 shadow-[0_0_10px_rgba(167,139,250,0.3)] animate-pulse">
+                      Adopt Me 🐶
+                    </span>
+                  )}
+                  
+                  <span className="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-slate-950/80 backdrop-blur-md border border-white/10 text-white">
                     {listing.animalType}
                   </span>
                 </div>
 
                 {/* Edit / Delete Buttons Overlay */}
                 {(listing.owner?._id === user?.id || user?.role === 'admin') && (
-                  <div className="absolute top-3 right-3 flex items-center gap-1.5">
+                  <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
                     {listing.status === 'Available' && (
                       <button
                         onClick={() => handleToggleStatus(listing._id)}
-                        className="p-2 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-brand-400 hover:text-brand-300 transition-colors"
+                        className="p-2 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-sky-400 hover:text-sky-300 hover:scale-105 transition-all"
                         title="Mark as Adopted"
                       >
                         <Check className="w-3.5 h-3.5" />
@@ -281,7 +287,7 @@ const AdoptionCorner = () => {
                     )}
                     <button
                       onClick={() => handleDeleteListing(listing._id)}
-                      className="p-2 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-rose-400 hover:text-rose-300 transition-colors"
+                      className="p-2 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-rose-400 hover:text-rose-300 hover:scale-105 transition-all"
                       title="Delete Listing"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -293,7 +299,7 @@ const AdoptionCorner = () => {
               {/* Card Body */}
               <div className="p-5 flex flex-col gap-4 flex-1">
                 <div>
-                  <h3 className="font-extrabold text-lg text-slate-200">{listing.breed}</h3>
+                  <h3 className="font-extrabold text-base text-slate-100 group-hover:text-purple-300 transition-colors leading-snug">{listing.breed}</h3>
                   <div className="flex items-center gap-2 mt-1">
                     <MapPin className="w-3.5 h-3.5 text-slate-500" />
                     <span className="text-xs text-slate-400">{listing.location}</span>
@@ -317,14 +323,14 @@ const AdoptionCorner = () => {
 
                 {/* Owner contact */}
                 <div className="flex flex-col gap-2 border-t border-white/5 pt-3">
-                  <div className="flex justify-between items-center text-[10px] text-slate-500">
+                  <div className="flex justify-between items-center text-[9px] text-slate-500">
                     <span>LISTED BY: {listing.owner?.name}</span>
                     <span>{new Date(listing.createdAt).toLocaleDateString()}</span>
                   </div>
 
                   <a
                     href={`tel:${listing.contactDetails}`}
-                    className="flex items-center justify-center gap-2 p-2 rounded-xl text-xs font-bold bg-white/5 hover:bg-white/10 border border-white/5 text-slate-300 transition-colors"
+                    className="flex items-center justify-center gap-2 p-2 rounded-xl text-xs font-bold bg-white/5 hover:bg-gradient-to-tr hover:from-purple-500 hover:to-indigo-500 hover:text-slate-950 border border-white/5 text-slate-300 transition-all hover:scale-[1.02] active:scale-[0.98] duration-300"
                   >
                     <Phone className="w-3.5 h-3.5" />
                     <span>Contact: {listing.contactDetails}</span>

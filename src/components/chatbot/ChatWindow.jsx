@@ -5,9 +5,9 @@ import QuickSuggestions from './QuickSuggestions.jsx';
 import { 
   X, 
   Send, 
-  Bot, 
   Trash2, 
-  Sparkles 
+  Sparkles,
+  PawPrint
 } from 'lucide-react';
 
 const ChatWindow = ({ onClose }) => {
@@ -42,34 +42,95 @@ const ChatWindow = ({ onClose }) => {
     }
   }, [messages, loading]);
 
+  const sendNormalMessage = async (text) => {
+    try {
+      const res = await API.post('/pawbot/chat', { message: text });
+      if (res.data.success) {
+        setMessages(prev => [...prev, { role: 'assistant', content: res.data.reply, timestamp: new Date() }]);
+      }
+    } catch (err) {
+      console.error('PawBot API message pipeline failed:', err);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: '⚠️ **Connection Error:** I failed to process that request. Please ensure your backend server is online.',
+        timestamp: new Date()
+      }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSendMessage = async (textToSend) => {
     const text = textToSend || inputText;
     if (!text.trim()) return;
 
-    // Append user message locally
-    const userMsg = { sender: 'user', text: text.trim(), timestamp: new Date() };
-    setMessages(prev => [...prev, userMsg]);
     setInputText('');
     setLoading(true);
 
-    try {
-      const res = await API.post('/pawbot/chat', { message: text.trim() });
-      if (res.data.success) {
-        setMessages(prev => [...prev, { 
-          sender: 'bot', 
-          text: res.data.reply, 
-          timestamp: new Date() 
-        }]);
+    const lowerText = text.toLowerCase().trim();
+    const isLocationQuery = lowerText.includes('nearest') || lowerText.includes('nearby') || lowerText.includes('find a') || lowerText.includes('locate');
+    const isVet = lowerText.includes('vet') || lowerText.includes('clinic') || lowerText.includes('hospital') || lowerText.includes('doctor');
+    const isGroomer = lowerText.includes('groom') || lowerText.includes('salon') || lowerText.includes('spa');
+    const isStore = lowerText.includes('store') || lowerText.includes('shop') || lowerText.includes('food') || lowerText.includes('accessories');
+
+    if (isLocationQuery && (isVet || isGroomer || isStore)) {
+      // Access browser geolocation
+      setMessages(prev => [...prev, { role: 'user', content: text, timestamp: new Date() }]);
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            try {
+              const nearbyRes = await API.get(`/nearby?lat=${latitude}&lng=${longitude}`);
+              if (nearbyRes.data.success && nearbyRes.data.all) {
+                let label = 'Veterinary Clinics & Hospitals';
+                
+                const services = nearbyRes.data.all.filter(s => {
+                  if (isGroomer) {
+                    label = 'Grooming Salons & Spas';
+                    return s.type === 'Pet Grooming Salon';
+                  }
+                  if (isStore) {
+                    label = 'Pet Supplies & Accessory Shops';
+                    return s.type === 'Pet Food Store' || s.type === 'Pet Accessory Shop';
+                  }
+                  return s.type === 'Veterinary Hospital';
+                }).slice(0, 3);
+
+                let clinicReply = `📍 **Here are the nearest ${label} based on your coordinates:**\n\n`;
+                if (services.length > 0) {
+                  services.forEach((c, i) => {
+                    clinicReply += `${i + 1}. **${c.name}**\n   - 🏥 Distance: ${c.distance} km\n   - 📞 Contact: ${c.contact}\n   - ⭐ Rating: ${c.rating}/5.0\n   - 📍 Address: *${c.address}*\n\n`;
+                  });
+                } else {
+                  clinicReply += `No matching services found in your area.\n\n`;
+                }
+                clinicReply += `*This is general guidance and not a veterinary diagnosis.*`;
+
+                setMessages(prev => [...prev, { role: 'assistant', content: clinicReply, timestamp: new Date() }]);
+                setLoading(false);
+
+                // Sync and log query to database history
+                await API.post('/pawbot/chat', { message: text });
+              }
+            } catch (err) {
+              console.error('Nearby API lookup failed:', err);
+              await sendNormalMessage(text);
+            }
+          },
+          async (error) => {
+            console.warn('Geolocation access denied. Redirecting query to model fallback:', error.message);
+            await sendNormalMessage(text);
+          }
+        );
+      } else {
+        await sendNormalMessage(text);
       }
-    } catch (err) {
-      console.error('Chatbot request failed:', err);
-      setMessages(prev => [...prev, { 
-        sender: 'bot', 
-        text: '🐾 Sorry, my connection is lagging. Please try asking again in a moment!', 
-        timestamp: new Date() 
-      }]);
-    } finally {
-      setLoading(false);
+    } else {
+      // Standard AI conversation path
+      setMessages(prev => [...prev, { role: 'user', content: text, timestamp: new Date() }]);
+      await sendNormalMessage(text);
     }
   };
 
@@ -80,8 +141,8 @@ const ChatWindow = ({ onClose }) => {
         if (res.data.success) {
           setMessages([
             {
-              sender: 'bot',
-              text: `🐾 **Chat history cleared.**\n\nHow can I help you today? You can ask me questions about animal health, first aid, training, diets, or nearby veterinary clinics.`,
+              role: 'assistant',
+              content: "🐾 Chat history cleared. How can I help you today?",
               timestamp: new Date()
             }
           ]);
@@ -93,82 +154,67 @@ const ChatWindow = ({ onClose }) => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
+    if (e.key === 'Enter') {
       handleSendMessage();
     }
   };
 
-  const formatTime = (dateStr) => {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
   return (
-    <div className="w-[360px] sm:w-[400px] h-[550px] glass rounded-3xl border border-white/10 shadow-2xl flex flex-col overflow-hidden animate-fade-in relative z-20">
+    <div className="w-[380px] h-[550px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)] glass border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex flex-col overflow-hidden animate-fade-in relative z-[99999]">
       
-      {/* Header */}
-      <div className="p-4 border-b border-white/5 bg-slate-950/80 backdrop-blur-md flex items-center justify-between shrink-0">
+      {/* Header bar */}
+      <div className="p-4 bg-slate-900/80 border-b border-white/5 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-brand-500/10">
-            <Bot className="w-5 h-5 animate-pulse" />
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-400 to-violet-500 flex items-center justify-center text-[#0B0F1A] shadow-md shadow-sky-400/25 animate-pulse">
+            <PawPrint className="w-5 h-5 fill-current" />
           </div>
           <div>
-            <h4 className="font-bold text-sm text-slate-200 flex items-center gap-1.5">
+            <h4 className="font-extrabold text-xs text-slate-100 flex items-center gap-1.5 leading-none">
               PawBot
-              <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping inline-block" />
             </h4>
-            <p className="text-[10px] text-slate-500 mt-0.5">Online AI Pet & Rescue Assistant</p>
+            <span className="text-[10px] text-slate-400 mt-1 block">Online AI Pet & Rescue Assistant</span>
           </div>
         </div>
 
         <div className="flex items-center gap-1">
-          {messages.length > 1 && (
-            <button
-              onClick={handleClearHistory}
-              className="p-1.5 rounded-lg hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 text-slate-400 hover:text-rose-400 transition-all"
-              title="Clear History"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          )}
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/5 text-slate-400 hover:text-white transition-all"
+          <button 
+            onClick={handleClearHistory}
+            className="p-2 text-slate-400 hover:text-rose-400 hover:bg-white/5 rounded-lg transition-colors"
+            title="Clear Chat History"
           >
-            <X className="w-4 h-4" />
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+          <button 
+            onClick={onClose}
+            className="p-2 text-slate-400 hover:text-slate-100 hover:bg-white/5 rounded-lg transition-colors"
+            title="Close Drawer"
+          >
+            <X className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      {/* Messages Feed Area */}
+      {/* Messages viewport */}
       <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 bg-slate-950/20">
         {fetchingHistory ? (
-          <div className="flex-1 flex items-center justify-center text-xs text-slate-500 gap-2">
-            <div className="w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full animate-spin" />
-            Loading conversations...
+          <div className="flex-1 flex flex-col items-center justify-center text-slate-500 gap-2">
+            <div className="w-6 h-6 rounded-full border-2 border-slate-700 border-t-sky-400 animate-spin" />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Syncing database logs...</span>
           </div>
         ) : (
-          messages.map((msg, index) => (
-            <div key={index} className="flex flex-col gap-1">
-              <MessageBubble message={msg} />
-              <span className={`text-[9px] text-slate-600 px-10 ${
-                msg.sender === 'user' ? 'self-end' : 'self-start'
-              }`}>
-                {formatTime(msg.timestamp)}
-              </span>
-            </div>
+          messages.map((msg, idx) => (
+            <MessageBubble key={idx} message={msg} />
           ))
         )}
 
-        {/* Simulated bouncing dots typing indicator */}
+        {/* Bouncing typing indicator dots */}
         {loading && (
           <div className="flex gap-2.5 max-w-[85%] items-start self-start">
-            <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-slate-950 shadow-md shrink-0">
-              <Bot className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-400 to-violet-500 flex items-center justify-center shrink-0">
+              <PawPrint className="w-4 h-4 fill-current text-[#0B0F1A]" />
             </div>
-            <div className="p-3.5 rounded-2xl bg-slate-900 border border-white/5 rounded-tl-none flex items-center gap-1">
+            <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 rounded-tl-none flex items-center gap-1">
               <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:-0.3s]" />
               <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:-0.15s]" />
               <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce" />
@@ -179,12 +225,12 @@ const ChatWindow = ({ onClose }) => {
         <div ref={chatEndRef} />
       </div>
 
-      {/* Quick reply prompt tags (render if conversation history is brief) */}
+      {/* Suggested Quick Prompt suggestions */}
       {!loading && messages.length <= 2 && (
         <QuickSuggestions onSelect={handleSendMessage} />
       )}
 
-      {/* Chat entry input box */}
+      {/* Input box */}
       <div className="p-3 border-t border-white/5 bg-slate-950/80 backdrop-blur-md flex gap-2 shrink-0">
         <input
           type="text"
@@ -194,7 +240,6 @@ const ChatWindow = ({ onClose }) => {
           placeholder="Ask about training, vaccines, toxic food..."
           className="flex-1 bg-slate-900 border border-white/10 focus:border-brand-500 rounded-xl py-2 px-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none transition-all"
         />
-        
         <button
           onClick={() => handleSendMessage()}
           disabled={loading || !inputText.trim()}

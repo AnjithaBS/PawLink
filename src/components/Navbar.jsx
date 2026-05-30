@@ -91,104 +91,113 @@ const Navbar = ({ toggleSidebar, sidebarOpen }) => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 h-16 flex items-center justify-between px-4 md:px-8">
+    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5 h-16 flex items-center justify-between px-4 md:px-8 shadow-[0_4px_30px_rgba(0,0,0,0.4)] backdrop-blur-md">
       {/* Mobile & Logo Left */}
       <div className="flex items-center gap-3">
         <button
           onClick={toggleSidebar}
           className="p-2 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/5 md:hidden transition-all duration-200"
         >
-          {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {sidebarOpen ? <X className="w-5 h-5 text-slate-300" /> : <Menu className="w-5 h-5 text-slate-300" />}
         </button>
 
-        <div className="flex items-center gap-2 select-none">
-          <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.3)] animate-pulse">
-            <PawPrint className="w-5 h-5 text-slate-950 fill-slate-950" />
+        <div className="flex items-center gap-2 select-none cursor-pointer">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-400 to-violet-500 flex items-center justify-center shadow-[0_0_15px_rgba(56,189,248,0.4)] animate-float-medium">
+            <PawPrint className="w-5 h-5 text-[#0B0F1A] fill-[#0B0F1A]" />
           </div>
-          <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-brand-100 to-brand-400 bg-clip-text text-transparent">
+          <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-sky-100 to-sky-400 bg-clip-text text-transparent">
             PawLink
           </span>
         </div>
       </div>
 
-      {/* Notifications Drawer Right */}
+
+
+      {/* Notifications Drawer & Avatar Right */}
       <div className="flex items-center gap-4">
         {user && (
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="relative p-2.5 rounded-xl hover:bg-white/5 border border-white/5 hover:border-white/10 text-slate-300 hover:text-slate-100 transition-all duration-200"
-            >
-              <Bell className="w-5 h-5" />
-              {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-5 h-5 bg-rose-500 rounded-full border border-slate-950 flex items-center justify-center text-[10px] font-extrabold text-white animate-bounce">
-                  {unreadCount}
-                </span>
-              )}
-            </button>
+          <>
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="relative p-2.5 rounded-xl hover:bg-white/5 border border-white/5 hover:border-white/10 text-slate-300 hover:text-slate-100 transition-all duration-200"
+              >
+                <Bell className="w-5 h-5" />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-rose-500 rounded-full border border-slate-950 flex items-center justify-center text-[9px] font-extrabold text-white animate-pulse shadow-[0_0_10px_rgba(244,63,94,0.6)]">
+                    {unreadCount}
+                  </span>
+                )}
+              </button>
 
-            {/* Notifications Dropdown Panel */}
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-3 w-80 max-h-96 rounded-2xl glass border border-white/10 shadow-2xl overflow-hidden flex flex-col z-[999]">
-                {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-white/5 bg-white/5">
-                  <h4 className="font-bold text-slate-200 text-sm">Notifications</h4>
-                  {unreadCount > 0 && (
-                    <button
-                      onClick={handleMarkAllRead}
-                      className="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center gap-1 transition-colors"
-                    >
-                      <Check className="w-3.5 h-3.5" />
-                      Mark all read
-                    </button>
-                  )}
-                </div>
-
-                {/* List Container */}
-                <div className="overflow-y-auto flex-1 divide-y divide-white/5">
-                  {notifications.length === 0 ? (
-                    <div className="p-8 text-center text-slate-500 text-sm flex flex-col items-center gap-2">
-                      <Bell className="w-8 h-8 text-slate-600" />
-                      <span>No alerts recorded yet.</span>
-                    </div>
-                  ) : (
-                    notifications.map((notif) => (
-                      <div
-                        key={notif._id}
-                        className={`p-3.5 flex gap-3 transition-colors ${
-                          notif.read ? 'bg-transparent' : 'bg-white/[0.03] hover:bg-white/[0.05]'
-                        }`}
+              {/* Notifications Dropdown Panel */}
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-3 w-80 max-h-96 rounded-2xl glass border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.6)] overflow-hidden flex flex-col z-[999]">
+                  {/* Header */}
+                  <div className="flex items-center justify-between p-4 border-b border-white/5 bg-white/5">
+                    <h4 className="font-bold text-slate-200 text-sm">Notifications</h4>
+                    {unreadCount > 0 && (
+                      <button
+                        onClick={handleMarkAllRead}
+                        className="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1 transition-colors"
                       >
-                        <div className="mt-0.5 shrink-0 w-7 h-7 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center">
-                          {getNotifIcon(notif.type)}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h5 className="font-semibold text-xs text-slate-200 truncate">
-                            {notif.title}
-                          </h5>
-                          <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
-                            {notif.message}
-                          </p>
-                          <span className="text-[9px] text-slate-500 mt-1 block">
-                            {new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                          </span>
-                        </div>
-                        {!notif.read && (
-                          <button
-                            onClick={() => handleMarkAsRead(notif._id)}
-                            className="mt-0.5 shrink-0 self-start text-brand-400 hover:text-brand-300 p-0.5 hover:bg-brand-500/10 rounded"
-                            title="Mark as read"
-                          >
-                            <Check className="w-3.5 h-3.5" />
-                          </button>
-                        )}
+                        <Check className="w-3.5 h-3.5" />
+                        Mark all read
+                      </button>
+                    )}
+                  </div>
+
+                  {/* List Container */}
+                  <div className="overflow-y-auto flex-1 divide-y divide-white/5">
+                    {notifications.length === 0 ? (
+                      <div className="p-8 text-center text-slate-500 text-sm flex flex-col items-center gap-2">
+                        <Bell className="w-8 h-8 text-slate-600" />
+                        <span>No alerts recorded yet.</span>
                       </div>
-                    ))
-                  )}
+                    ) : (
+                      notifications.map((notif) => (
+                        <div
+                          key={notif._id}
+                          className={`p-3.5 flex gap-3 transition-colors ${
+                            notif.read ? 'bg-transparent' : 'bg-white/[0.03] hover:bg-white/[0.05]'
+                          }`}
+                        >
+                          <div className="mt-0.5 shrink-0 w-7 h-7 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center">
+                            {getNotifIcon(notif.type)}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h5 className="font-semibold text-xs text-slate-200 truncate">
+                              {notif.title}
+                            </h5>
+                            <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                              {notif.message}
+                            </p>
+                            <span className="text-[9px] text-slate-500 mt-1 block">
+                              {new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                          {!notif.read && (
+                            <button
+                              onClick={() => handleMarkAsRead(notif._id)}
+                              className="mt-0.5 shrink-0 self-start text-sky-400 hover:text-sky-300 p-0.5 hover:bg-sky-500/10 rounded"
+                              title="Mark as read"
+                            >
+                              <Check className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+
+            {/* Glowing Rounded Avatar */}
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-sky-400 via-indigo-500 to-violet-500 flex items-center justify-center font-black text-xs text-[#0B0F1A] border border-sky-300/30 shadow-[0_0_10px_rgba(56,189,248,0.25)] hover:shadow-[0_0_15px_rgba(56,189,248,0.5)] transition-all cursor-pointer">
+              {user?.name?.charAt(0).toUpperCase()}
+            </div>
+          </>
         )}
       </div>
     </header>
